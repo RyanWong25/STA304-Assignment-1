@@ -1,0 +1,110 @@
+---
+title: "STA304 Assignment 1"
+author: "Ryan Jo Wong"
+date: "2/2/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+sample survey link:
+https://www150.statcan.gc.ca/n1/pub/45-28-0001/2020001/article/00022-eng.htm
+
+#### (a)
+
+The key question of interest on this survey was how the COVID-19 pandemic affected the work placement of postsecondary students in Canada. The target population is all postsecondary students in Canada as of March 1, 2020. The sampled population is the 100,000 postsecondary students who participated in the crowdsourcing questionnaire from April 19 to May 1, 2020. There was no sampling frame in this report and the sampling design was a voluntary (Non-Probability) sampling design. The sample size was 100,000 students and the observation unit was a single postsecondary student in Canada that participated in the questionnaire.
+
+#### (b)
+
+One concluding result drawn from the survey by the authors was that about 35% of postsecondary students that participated in the questionnaire reported that their work placement was delayed or cancelled due to the COVID-19 pandemic. I do not think that this conclusion can be generalized to the target population because this was not a randomly sampled population (or a Probability sampling design), meaning that there could be biases from the responses of the students that chose to participate in this survey. This bias could come from the specific types of students that are voluntarily choosing to take part in this survey, and they may not be representative of the entire body of postsecondary students in Canada.
+
+#### (c)
+
+One possible source of error in the survey could be the sampling design, in that they decided to go with a Non-Probability Voluntary sampling design. Possible ways to alleviate this error would be to consider using a type of Probability sampling design (such as SRS, stratified, cluster, etc.) to minimize the amount of bias introduced in to the findings from the survey. Another possible source of error in the survey could be in the questionnaire design, where there might be some leading/loaded questions specifically when asking about participants concerns with the financial impact of losing or having a work placement delayed due to the COVID-19 pandemic. A way to alleviate this error would be to rephrase these questions to be neutral and to keep them simple and clear.
+
+## Question 2
+
+#### (a)
+
+Our objective for this survey is to learn more about how the COVID-19 pandemic has affected the academic performance of Arts and Science students at the University of Toronto - St. George campus. The target population for my survey will be all undergraduate students (Canadian and International) enrolled in an Arts and Science program at the University of Toronto - St. George campus. A suitable sampling frame would be a list of all the emails of undergraduate students enrolled in an Arts and Science Program at the St. George campus. The sampling design will be a Simple Random Sampling without replacement of 1,000 students from our sampling frame, to ensure that every student in our target population is equally likely to be chosen for this survey. The methods of measurement for this survey would include an emailed questionnaire and phone-based interview with similar questions on how COVID-19 has affected students.
+
+#### (b)
+
+An appropriate open-ended question related to our objective is: How has the COVID-19 pandemic impacted the amount of time you spend studying on average weekly?
+
+#### (c)
+
+A closed question that is an alternative to the one in the part above is: How many hours did you spend studying on average weekly before the COVID-19 pandemic versus now during the pandemic?
+
+#### (d)
+
+An example of a poorly worded question to my answer in part (b) above is: How has the COVID-19 pandemic negatively impacted or hurt the amount of time you can spend studying weekly? The error incurred in the wording of this question is that it is leading on, or prompting, the respondent to say something negative about the pandemics affects on their study habits, introducing bias.
+
+## Question 3
+
+#### (a)
+
+population of interest: 1003825140
+```{r, echo=FALSE}
+population <- c(1,0,0,3,8,2,5,1,4,0)
+
+paste("mean", mean(population), sep = " = ")
+paste("median", median(population), sep = " = ")
+paste("variance", var(population), sep = " = ")
+paste("sum", sum(population), sep = " = ")
+paste("proportion of digits like the first digit", mean(population == population[1]), sep = " = ")
+```
+My UofT student number (population of interest) is 1003825140. The mean of this population of digits is 2.4. The median is 1.5, the variance is about 6.93, the sum of the digits is 24, and the proportion of digits like the first digit in my student number is 0.2.
+
+#### (b)
+
+```{r, echo=FALSE}
+hist(population, main = "Frequency histogram of population 1003825140")
+```
+
+#### (c)
+
+```{r, echo=FALSE}
+set.seed(1003825140)
+#initialize a zero vector of length choose(10,3)
+combinations <- choose(10,3)
+smbar = rep(0,combinations)
+#sample size, n=3
+for(i in 1:combinations){smbar[i]=mean(sample(population,3))}
+hist(smbar, xlim=c(0,8), main="Frequency histogram of the sampling distribution 1003825140", xlab="sample means")
+```
+
+#### (d)
+
+```{r, echo=FALSE}
+paste("mean", mean(smbar), sep = " = ")
+paste("variance", var(smbar), sep = " = ")
+```
+The mean of the sample means of part (c) is 2.44 and the variance of the sample means of part (c) is 1.64.
+
+#### (e)
+
+```{r, echo=FALSE}
+set.seed(1003825140)
+#initialize a zero vector of length 250,000
+smbar_2 = rep(0,250000)
+#sample size, n=3
+for(i in 1:250000){smbar_2[i]=mean(sample(population,3,replace=TRUE))}
+hist(smbar_2, xlim=c(0,8), main="Frequency histogram of the sampling distribution 1003825140", xlab="sample means")
+```
+
+#### (f)
+
+```{r, echo=FALSE}
+paste("mean", mean(smbar_2), sep = " = ")
+paste("variance", var(smbar_2), sep = " = ")
+```
+The mean of the sample means of part (e) is 2.40 and the variance of the sample means of part (e) is 2.08.
+
+#### (g)
+
+Looking at the results from part (c) and (e), we can see that the mean from part (e) is less than the mean from part (c), but it is closer to the mean of the actual population. This can be attributed to the fact that part (e) uses a larger sample size than part (c), and by the Law of Large Numbers, the mean of the sampling distribution should be closer to the true population mean. Also, we can see that the variance in part (c) is less than the variance in part (e). This is because although part (e) does have a larger sample size (which should correlate with a smaller variance), since it is sampling with replacement, intuitively, for each sample there is a larger range to choose from in the population of 10. This is in contrast with part (c) which samples without replacement, meaning for each sample, the next choice in the sample of size 3 chooses from a range of 1 less from the previous choice. Thus, the sample values in part (c) are not independent and the sample means vary less from sample to sample. This is consistent with the formulas for variance in sampling with replacement and sampling without replacement (which considers the sample size and population size).
